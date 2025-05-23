@@ -13,10 +13,19 @@ import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.exceptions.Data
 import co.edu.uco.easy.victusresidencias.victus_api.dao.ResidentialComplexDAO;
 import co.edu.uco.easy.victusresidencias.victus_api.dao.impl.sql.SqlDAO;
 import co.edu.uco.easy.victusresidencias.victus_api.entity.AdministratorEntity;
+import co.edu.uco.easy.victusresidencias.victus_api.entity.CityEntity;
 import co.edu.uco.easy.victusresidencias.victus_api.entity.ResidentialComplexEntity;
 
 final class ResidentialComplexPostgreSqlDAO extends SqlDAO implements ResidentialComplexDAO {
-	
+	private static final String FROM = "FROM ciudad ";
+	private static final String SELECT = "SELECT id, nombre, departamento_id ";
+	private static final String DELETE = "DELETE FROM ciudad WHERE id = ?";
+	private static final String UPDATE = "UPDATE ciudad SET nombre = ? WHERE id = ?";
+	private static final String NAMEclassSingular = "Conjunto Residencial";
+	private static final String NAMEclassPlural = "Conjuntos Residenciales";
+	private static final String CREATEstatemente = "INSERT INTO ciudad(id, nombre, departamento_id) VALUES (?, ?, ?)";
+	private static final PostgreSqlDAOFactory factoria = new PostgreSqlDAOFactory();
+
 	protected ResidentialComplexPostgreSqlDAO(final Connection connection) {
 		super(connection);
 		// TODO Auto-generated constructor stub
@@ -26,9 +35,9 @@ final class ResidentialComplexPostgreSqlDAO extends SqlDAO implements Residentia
 	public ResidentialComplexEntity fingByID(UUID id) {
 		var residentialComplexEntityFilter = new ResidentialComplexEntity();
 	    residentialComplexEntityFilter.setId(id);
-	    
 	    var result = findByFilter(residentialComplexEntityFilter);
-	    return (result.isEmpty()) ? new ResidentialComplexEntity() : result.get(0);
+//	    return (result.isEmpty()) ? new ResidentialComplexEntity() : result.get(0);
+		return (result.isEmpty()) ? null : result.get(0);
 	}
 
 	@Override
@@ -43,16 +52,9 @@ final class ResidentialComplexPostgreSqlDAO extends SqlDAO implements Residentia
 	    final var resultSelect = new ArrayList<ResidentialComplexEntity>();
 	    var statementWasPrepared = false;		 
 	    
-	    // Select
 	    createSelect(statement);
-	    
-	    // From
 	    createFrom(statement);
-	    
-	    // Where
 	    createWhere(statement, filter, parameters);
-	    
-	    // Order By
 	    createOrderBy(statement);
 	    
 	    try (var preparedStatement = getConnection().prepareStatement(statement.toString())) {
@@ -67,6 +69,8 @@ final class ResidentialComplexPostgreSqlDAO extends SqlDAO implements Residentia
 	        while (result.next()) {
 	            var residentialComplexEntityTmp = new ResidentialComplexEntity();
 	            var administratorEntityTmp = new AdministratorEntity();
+				var cityEntityTmp = new CityEntity();
+				//voy por aqui creando la ciudad temporal pero me di cuenta que falta el portero voy a ir a crearlo
 	            residentialComplexEntityTmp.setId(UUID.fromString(result.getString("id")));
 	            residentialComplexEntityTmp.setName(result.getString("name"));
 	            

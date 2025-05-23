@@ -6,6 +6,8 @@ import co.edu.uco.easy.victusresidencias.victus_api.controller.response.concrete
 import co.edu.uco.easy.victusresidencias.victus_api.controller.response.concrete.StateResponse;
 import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.exceptions.BusinessLogicVictusResidenciasException;
 import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.exceptions.UcoApplicationException;
+import co.edu.uco.easy.victusresidencias.victus_api.dao.DAOFactory;
+import co.edu.uco.easy.victusresidencias.victus_api.dao.enums.DAOSource;
 import co.edu.uco.easy.victusresidencias.victus_api.dao.impl.postgresql.PostgreSqlDAOFactory;
 import co.edu.uco.easy.victusresidencias.victus_api.entity.CountryEntity;
 import co.edu.uco.easy.victusresidencias.victus_api.entity.ResidentEntity;
@@ -41,7 +43,8 @@ public class DepartamentoControlador {
             response.setData(entities);
             messages.add(String.format("Los %s fueron consultados satisfactoriamente.",NAMEclassPlural));
             response.setMessages(messages);
-
+            var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
+            factory.closeConnection();
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -67,7 +70,8 @@ public class DepartamentoControlador {
             response.setData(List.of(entity));
             messages.add(String.format("El %s fue consultado satisfactoriamente.",NAMEclassSingular));
             response.setMessages(messages);
-
+            var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
+            factory.closeConnection();
             return new GenerateResponse<StateResponse>().generateSuccessResponseWithData(response);
 
         } catch (Exception e) {
@@ -104,6 +108,8 @@ public class DepartamentoControlador {
             // Si no existe, procede a crear el país
             daoFactory.getStateDAO().create(departamento);
             messages.add(String.format("El %s se registró de forma satisfactoria.",NAMEclassSingular));
+            var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
+            factory.closeConnection();
             return GenerateResponse.generateSuccessResponse(messages);
 
         } catch (UcoApplicationException exception) {
@@ -142,7 +148,8 @@ public class DepartamentoControlador {
             messages.add(String.format("El %s ",NAMEclassSingular) + existingDepartamentoEntity.getName() + " se actualizó correctamente.");
             responseWithData.setData(List.of(existingDepartamentoEntity));
             responseWithData.setMessages(messages);
-
+            var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
+            factory.closeConnection();
             return new ResponseEntity<>(responseWithData, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -169,6 +176,8 @@ public class DepartamentoControlador {
             }
             daoFactory.getStateDAO().delete(id);
             messages.add(String.format("El %s se eliminó de manera satisfactoria.",NAMEclassSingular));
+            var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
+            factory.closeConnection();
             return GenerateResponse.generateSuccessResponse(messages);
 
         } catch (Exception e) {

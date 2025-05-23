@@ -41,6 +41,4 @@ public class CityEntity extends DomainEntity {
 	public void setState(final StateEntity state) {
 		this.state = ObjectHelper.getDefault(state, new StateEntity());
 	}
-	
-
 }

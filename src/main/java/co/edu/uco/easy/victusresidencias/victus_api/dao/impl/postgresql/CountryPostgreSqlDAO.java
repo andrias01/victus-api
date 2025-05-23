@@ -30,7 +30,6 @@ final class CountryPostgreSQLDAO extends SqlDAO implements CountryDAO {
 	public CountryEntity fingByID(UUID id) {
 		var countryEntityFilter = new CountryEntity();
 	    countryEntityFilter.setId(id);
-	    
 	    var result = findByFilter(countryEntityFilter);
 	    return (result.isEmpty()) ? null : result.get(0); // Retorna null si no encuentra
 	}
@@ -59,7 +58,6 @@ final class CountryPostgreSQLDAO extends SqlDAO implements CountryDAO {
 	        }
 	        System.out.println("Sentencia preparada " + statement);
 	        statementWasPrepared = true;
-	        
 	        final var result = preparedStatement.executeQuery();
 	        while (result.next()) {
 	            var countryEntityTmp = new CountryEntity();
@@ -134,15 +132,12 @@ final class CountryPostgreSQLDAO extends SqlDAO implements CountryDAO {
 	    }
 	}
 
-
-
 	@Override
 	public void delete(UUID data) {
 		final StringBuilder statement = new StringBuilder();
 		statement.append(DELETE);
 
 	    try (final var preparedStatement = getConnection().prepareStatement(statement.toString())) {
-
 	        preparedStatement.setObject(1, data);
 	        preparedStatement.executeUpdate();
 

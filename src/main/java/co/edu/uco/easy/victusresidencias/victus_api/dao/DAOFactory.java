@@ -36,6 +36,7 @@ public abstract class DAOFactory {
 	public abstract CityDAO getCityDAO();
 	public abstract CountryDAO getCountryDAO();
 	public abstract StateDAO getStateDAO();
+	public abstract PorteroDAO getPorteroDAO();
 	public abstract ResidentialComplexDAO getResidentialComplexDAO();
 	public abstract CommonZoneDAO getCommonZoneDAO();
 	public abstract AdministratorDAO getAdministratorDAO();

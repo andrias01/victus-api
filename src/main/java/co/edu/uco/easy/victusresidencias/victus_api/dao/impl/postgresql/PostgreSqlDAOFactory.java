@@ -9,13 +9,7 @@ import java.sql.Connection;
 
 
 import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.helpers.SqlConnectionHelper;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.AdministratorDAO;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.CityDAO;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.CommonZoneDAO;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.CountryDAO;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.DAOFactory;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.ResidentialComplexDAO;
-import co.edu.uco.easy.victusresidencias.victus_api.dao.StateDAO;
+import co.edu.uco.easy.victusresidencias.victus_api.dao.*;
 
 public final class PostgreSqlDAOFactory extends DAOFactory {
 
@@ -77,6 +71,11 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
 	public StateDAO getStateDAO() {
 		return new StatePostgreSqlDAO(connection);
 				
+	}
+
+	@Override
+	public PorteroDAO getPorteroDAO() {
+		return new PorteroPostgreSqlDAO(connection);
 	}
 
 	@Override

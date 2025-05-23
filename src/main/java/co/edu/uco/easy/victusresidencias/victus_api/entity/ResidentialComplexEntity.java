@@ -23,6 +23,8 @@ public class ResidentialComplexEntity extends DomainEntity {
         setDescription(TextHelper.EMPTY); // Corregido a setDescription
     }
 
+    public static final AdministratorEntity create(){return new AdministratorEntity();}
+
     public String getName() {
         return name;
     }

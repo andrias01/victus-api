@@ -3,13 +3,14 @@ package co.edu.uco.easy.victusresidencias.victus_api.controller;
 import co.edu.uco.easy.victusresidencias.victus_api.controller.response.GenerateResponse;
 import co.edu.uco.easy.victusresidencias.victus_api.controller.response.concrete.CountryResponse;
 import co.edu.uco.easy.victusresidencias.victus_api.controller.response.concrete.GenericResponse;
+import co.edu.uco.easy.victusresidencias.victus_api.controller.response.concrete.PorteroResponse;
 import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.exceptions.BusinessLogicVictusResidenciasException;
 import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.exceptions.UcoApplicationException;
-import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.helpers.UUIDHelper;
 import co.edu.uco.easy.victusresidencias.victus_api.dao.DAOFactory;
 import co.edu.uco.easy.victusresidencias.victus_api.dao.enums.DAOSource;
 import co.edu.uco.easy.victusresidencias.victus_api.dao.impl.postgresql.PostgreSqlDAOFactory;
 import co.edu.uco.easy.victusresidencias.victus_api.entity.CountryEntity;
+import co.edu.uco.easy.victusresidencias.victus_api.entity.PorteroEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,28 +22,28 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "https://tangerine-profiterole-824fd8.netlify.app")
 @RestController
-@RequestMapping("/api/v1/paises")
-public class PaisControlador {
-    private static final String NAMEclassSingular = "Pais";
-    private static final String NAMEclassPlural = "Paises";
+@RequestMapping("/api/v1/porteros")
+public class PorteroControlador {
+    private static final String NAMEclassSingular = "Portero";
+    private static final String NAMEclassPlural = "Porteros";
 
     private final PostgreSqlDAOFactory daoFactory;
 
     @Autowired
-    public PaisControlador(){this.daoFactory = new PostgreSqlDAOFactory();}
+    public PorteroControlador(){this.daoFactory = new PostgreSqlDAOFactory();}
 
     @GetMapping("/dummy")
-    public CountryEntity getDummy() {
-        return CountryEntity.create();
+    public PorteroEntity getDummy() {
+        return PorteroEntity.create();
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<CountryResponse> retrieveAll() {
-        var response = new CountryResponse();
+    public ResponseEntity<PorteroResponse> retrieveAll() {
+        var response = new PorteroResponse();
         var messages = new ArrayList<String>();
 
         try {
-            var entities = daoFactory.getCountryDAO().findAll();
+            var entities = daoFactory.getPorteroDAO().findAll();
             response.setData(entities);
             messages.add(String.format("Los %s fueron consultados satisfactoriamente.",NAMEclassPlural));
             response.setMessages(messages);
@@ -59,12 +60,12 @@ public class PaisControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CountryResponse> retrieveById(@PathVariable UUID id) {
-        var response = new CountryResponse();
+    public ResponseEntity<PorteroResponse> retrieveById(@PathVariable UUID id) {
+        var response = new PorteroResponse();
         var messages = new ArrayList<String>();
 
         try {
-            var entity = daoFactory.getCountryDAO().fingByID(id);
+            var entity = daoFactory.getPorteroDAO().fingByID(id);
 
             if (entity == null) {
                 messages.add(String.format("No se encontró un %s con el ID especificado.",NAMEclassSingular));
@@ -76,7 +77,7 @@ public class PaisControlador {
             response.setMessages(messages);
             var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
             factory.closeConnection();
-            return new GenerateResponse<CountryResponse>().generateSuccessResponseWithData(response);
+            return new GenerateResponse<PorteroResponse>().generateSuccessResponseWithData(response);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,29 +88,29 @@ public class PaisControlador {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GenericResponse> create(@RequestBody CountryEntity country) {
+    public ResponseEntity<GenericResponse> create(@RequestBody PorteroEntity portero) {
         var messages = new ArrayList<String>();
 
         try {
-            var countryEntityFilter = new CountryEntity();
-            countryEntityFilter.setName(country.getName());
+            var porteroEntityFilter = new PorteroEntity();
+            porteroEntityFilter.setNombre(portero.getNombre());
 
             // Buscar en la base de datos utilizando el filtro
-            boolean countryExists = !daoFactory.getCountryDAO().findByFilter(countryEntityFilter).isEmpty();
-            boolean countryIsEmpty = country.getName() == null || country.getName().isEmpty();
+            boolean porteroExists = !daoFactory.getPorteroDAO().findByFilter(porteroEntityFilter).isEmpty();
+            boolean porteroIsEmpty = portero.getNombre() == null || portero.getNombre().isEmpty();
 
             // Lanzar excepción si se encuentra un país con el mismo nombre, nullo o vacío
-            if (countryIsEmpty) {
+            if (porteroIsEmpty) {
                 String userMessage = String.format("El %s no puede estar vacío",NAMEclassSingular);
-                String technicalMessage = String.format("El %s con el nombre ",NAMEclassSingular) + country.getName() + "' no puede estar vacío para crearlo en la base de datos.";
+                String technicalMessage = String.format("El %s con el nombre ",NAMEclassSingular) + portero.getNombre() + "' no puede estar vacío para crearlo en la base de datos.";
                 throw BusinessLogicVictusResidenciasException.crear(userMessage, technicalMessage);
-            } else if (countryExists) {
+            } else if (porteroExists) {
                 String userMessage = String.format("El %s ya existe",NAMEclassSingular);
-                String technicalMessage = String.format("El %s con el nombre ",NAMEclassSingular) + country.getName() + "' ya existe en la base de datos.";
+                String technicalMessage = String.format("El %s con el nombre ",NAMEclassSingular) + portero.getNombre() + "' ya existe en la base de datos.";
                 throw BusinessLogicVictusResidenciasException.crear(userMessage, technicalMessage);
             }
             // Si no existe, procede a crear el país
-            daoFactory.getCountryDAO().create(country);
+            daoFactory.getPorteroDAO().create(portero);
             messages.add(String.format("El %s se registró de forma satisfactoria.",NAMEclassSingular));
             var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
             factory.closeConnection();
@@ -128,28 +129,33 @@ public class PaisControlador {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CountryResponse> update(@PathVariable UUID id, @RequestBody CountryEntity country) {
-        var responseWithData = new CountryResponse();
+    public ResponseEntity<PorteroResponse> update(@PathVariable UUID id, @RequestBody PorteroEntity portero) {
+        var responseWithData = new PorteroResponse();
         var messages = new ArrayList<String>();
 
         try {
             // Paso 1: Obtener el dato actual de la base de datos
-            CountryEntity existingPaisEntity = daoFactory.getCountryDAO().fingByID(id);
+            PorteroEntity existingPorteroEntity = daoFactory.getPorteroDAO().fingByID(id);
 
-            if (existingPaisEntity == null) {
+            if (existingPorteroEntity == null) {
                 messages.add(String.format("No se encontró un %s con el ID especificado.",NAMEclassSingular));
                 responseWithData.setMessages(messages);
                 return new ResponseEntity<>(responseWithData, HttpStatus.NOT_FOUND);
             }
             // Paso 2: Fusionar datos nuevos con los existentes
-            if (country.getName() != "") existingPaisEntity.setName(country.getName());
-
+            if (portero.getNombre() != "") existingPorteroEntity.setNombre(portero.getNombre());
+            if (portero.getApellido() != "") existingPorteroEntity.setApellido(portero.getApellido());
+            if (portero.getTipo_documento() != "") existingPorteroEntity.setTipo_documento(portero.getTipo_documento());
+            if (portero.getNumero_documento() != "") existingPorteroEntity.setNumero_documento(portero.getNumero_documento());
+            if (portero.getNumero_contacto() != "") existingPorteroEntity.setNumero_contacto(portero.getNumero_contacto());
+            if (portero.getEmail() != "") existingPorteroEntity.setEmail(portero.getEmail());
+            if (portero.getContraseña() != "") existingPorteroEntity.setContraseña(portero.getContraseña());
             // Paso 3: Guardar los cambios en la base de datos
-            daoFactory.getCountryDAO().update(existingPaisEntity);
+            daoFactory.getPorteroDAO().update(existingPorteroEntity);
 
             // Mensaje de éxito
-            messages.add(String.format("El %s ",NAMEclassSingular) + existingPaisEntity.getName() + " se actualizó correctamente.");
-            responseWithData.setData(List.of(existingPaisEntity));
+            messages.add(String.format("El %s ",NAMEclassSingular) + existingPorteroEntity.getNombre() + " se actualizó correctamente.");
+            responseWithData.setData(List.of(existingPorteroEntity));
             responseWithData.setMessages(messages);
             var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
             factory.closeConnection();
@@ -166,18 +172,18 @@ public class PaisControlador {
     @DeleteMapping("/{id}")
     public ResponseEntity<GenericResponse> delete(@PathVariable UUID id) {
         var messages = new ArrayList<String>();
-        CountryEntity existingPaisEntity = daoFactory.getCountryDAO().fingByID(id);
+        PorteroEntity existingPorteroEntity = daoFactory.getPorteroDAO().fingByID(id);
 
         try {
             if (id == null ) {
                 var userMessage = String.format("El ID del %S es requerido para poder eliminar la información.",NAMEclassSingular);
                 var technicalMessage = String.format("El ID del %s en la clase CountryEntity llegó nulo o vacío.",NAMEclassSingular);
                 throw BusinessLogicVictusResidenciasException.crear(userMessage, technicalMessage);
-            } else if (existingPaisEntity == null) {
+            } else if (existingPorteroEntity == null) {
                 messages.add(String.format("No se encontró un %s con el ID especificado.",NAMEclassSingular));
                 return GenerateResponse.generateFailedResponse(messages);
             }
-            daoFactory.getCountryDAO().delete(id);
+            daoFactory.getPorteroDAO().delete(id);
             messages.add(String.format("El %s se eliminó de manera satisfactoria.",NAMEclassSingular));
             var factory = DAOFactory.getFactory(DAOSource.POSTGRESQL);
             factory.closeConnection();
@@ -189,5 +195,4 @@ public class PaisControlador {
             return GenerateResponse.generateFailedResponse(messages);
         }
     }
-
 }
