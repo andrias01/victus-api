@@ -35,6 +35,7 @@ co\edu\uco\easy\victusresidencias\victus_api\dao\impl\postgresql\PorteroPostgreS
 co\edu\uco\easy\victusresidencias\victus_api\controller\PorteroControlador.class
 co\edu\uco\easy\victusresidencias\victus_api\controller\DepartamentoControlador.class
 co\edu\uco\easy\victusresidencias\victus_api\entity\ResidentEntity.class
+co\edu\uco\easy\victusresidencias\victus_api\config\WebConfig.class
 co\edu\uco\easy\victusresidencias\victus_api\dao\UpdateDAO.class
 co\edu\uco\easy\victusresidencias\victus_api\crosscutting\helpers\DateHelper.class
 co\edu\uco\easy\victusresidencias\victus_api\entity\CommonZoneEntity.class
@@ -45,6 +46,7 @@ co\edu\uco\easy\victusresidencias\victus_api\crosscutting\helpers\SqlConnectionH
 co\edu\uco\easy\victusresidencias\victus_api\dao\impl\postgresql\CountryPostgreSQLDAO.class
 co\edu\uco\easy\victusresidencias\victus_api\controller\response\GenerateResponse.class
 co\edu\uco\easy\victusresidencias\victus_api\controller\response\concrete\StateResponse.class
+co\edu\uco\easy\victusresidencias\victus_api\config\WebConfig$1.class
 co\edu\uco\easy\victusresidencias\victus_api\controller\response\ResponseWithData.class
 co\edu\uco\easy\victusresidencias\victus_api\dao\CityDAO.class
 co\edu\uco\easy\victusresidencias\victus_api\dao\StateDAO.class
