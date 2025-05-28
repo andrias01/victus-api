@@ -7,23 +7,24 @@ import java.util.UUID;
 public class ResidentialComplexEntity extends DomainEntity {
 
     private String name;
-    private String address; // Corregido a minúscula para seguir convención de nombres
+    private String address;
     private CityEntity city;
-    private String contactReception; // Cambiado a String
+    private String contactReception;
     private String description;
     private AdministratorEntity administrator;
+    private PorteroEntity portero;
 
     public ResidentialComplexEntity() {
         super(UUIDHelper.getDefault());
         setName(TextHelper.EMPTY);
         setAdministrator(new AdministratorEntity());
         setCity(new CityEntity());
-        setContactReception(TextHelper.EMPTY); // Inicializado a TextHelper.EMPTY
+        setContactReception(TextHelper.EMPTY);
         setAddress(TextHelper.EMPTY);
-        setDescription(TextHelper.EMPTY); // Corregido a setDescription
+        setDescription(TextHelper.EMPTY);
     }
 
-    public static final AdministratorEntity create(){return new AdministratorEntity();}
+    public static final ResidentialComplexEntity create(){return new ResidentialComplexEntity();}
 
     public String getName() {
         return name;
@@ -51,6 +52,12 @@ public class ResidentialComplexEntity extends DomainEntity {
         this.city = ObjectHelper.getDefault(city, new CityEntity());
     }
 
+    public PorteroEntity getPortero() {
+        return portero;
+    }
+    public void setPortero(final PorteroEntity portero) {
+        this.portero = ObjectHelper.getDefault(portero, new PorteroEntity());
+    }
     public AdministratorEntity getAdministrator() {
         return administrator;
     }
