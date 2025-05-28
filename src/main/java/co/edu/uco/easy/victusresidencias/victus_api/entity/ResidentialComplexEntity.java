@@ -2,6 +2,7 @@ package co.edu.uco.easy.victusresidencias.victus_api.entity;
 
 import co.edu.uco.easy.victusresidencias.victus_api.crosscutting.helpers.*;
 
+
 import java.util.UUID;
 
 public class ResidentialComplexEntity extends DomainEntity {
@@ -12,7 +13,7 @@ public class ResidentialComplexEntity extends DomainEntity {
     private String contactReception;
     private String description;
     private AdministratorEntity administrator;
-    private PorteroEntity portero;
+    //private PorteroEntity portero;
 
     public ResidentialComplexEntity() {
         super(UUIDHelper.getDefault());
@@ -24,7 +25,7 @@ public class ResidentialComplexEntity extends DomainEntity {
         setDescription(TextHelper.EMPTY);
     }
 
-    public static final ResidentialComplexEntity create(){return new ResidentialComplexEntity();}
+//    public static final ResidentialComplexEntity create(){return new ResidentialComplexEntity();}
 
     public String getName() {
         return name;
@@ -52,12 +53,12 @@ public class ResidentialComplexEntity extends DomainEntity {
         this.city = ObjectHelper.getDefault(city, new CityEntity());
     }
 
-    public PorteroEntity getPortero() {
-        return portero;
-    }
-    public void setPortero(final PorteroEntity portero) {
-        this.portero = ObjectHelper.getDefault(portero, new PorteroEntity());
-    }
+//    public PorteroEntity getPortero() {
+//        return portero;
+//    }
+//    public void setPortero(final PorteroEntity portero) {
+//        this.portero = ObjectHelper.getDefault(portero, new PorteroEntity());
+//    }
     public AdministratorEntity getAdministrator() {
         return administrator;
     }
