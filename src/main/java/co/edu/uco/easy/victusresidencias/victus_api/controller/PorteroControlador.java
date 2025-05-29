@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "https://tangerine-profiterole-824fd8.netlify.app")
+//@CrossOrigin(origins = "https://tangerine-profiterole-824fd8.netlify.app")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/porteros")
 public class PorteroControlador {
