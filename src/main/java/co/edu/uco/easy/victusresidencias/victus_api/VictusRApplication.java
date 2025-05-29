@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"co.edu.uco.easy.victusresidencias.victus_api.controller"})
+@ComponentScan(basePackages = {"co.edu.uco.easy.victusresidencias.victus_api", "co.edu.uco.easy.victusresidencias.victus_api.controller", "co.edu.uco.easy.victusresidencias.victus_api.config"})
 public class VictusRApplication {
 
 	public static void main(String[] args) {
