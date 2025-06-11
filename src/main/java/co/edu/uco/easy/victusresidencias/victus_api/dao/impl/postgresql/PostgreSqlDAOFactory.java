@@ -84,10 +84,7 @@ public final class PostgreSqlDAOFactory extends DAOFactory {
 	}
 
 	@Override
-	public ResidentialComplexDAO getResidentialComplexDAO() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ResidentialComplexDAO getResidentialComplexDAO() {return new ResidentialComplexPostgreSqlDAO(connection);}
 
 	@Override
 	public CommonZoneDAO getCommonZoneDAO() {

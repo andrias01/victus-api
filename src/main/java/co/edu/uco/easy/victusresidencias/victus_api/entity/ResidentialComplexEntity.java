@@ -7,32 +7,37 @@ import java.util.UUID;
 
 public class ResidentialComplexEntity extends DomainEntity {
 
-    private String name;
-    private String address;
-    private CityEntity city;
-    private String contactReception;
+    private String nombre;
+    private String direccion;
+    private String telefono_contacto;
     private String description;
+    private String correo;
+    private CityEntity ciudad;
+    private PorteroEntity portero;
     private AdministratorEntity administrator;
-    //private PorteroEntity portero;
+
+
 
     public ResidentialComplexEntity() {
         super(UUIDHelper.getDefault());
-        setName(TextHelper.EMPTY);
+        setNombre(TextHelper.EMPTY);
         setAdministrator(new AdministratorEntity());
-        setCity(new CityEntity());
-        setContactReception(TextHelper.EMPTY);
-        setAddress(TextHelper.EMPTY);
+        setCiudad(new CityEntity());
+        setPortero(new PorteroEntity());
+        setTelefono_contacto(TextHelper.EMPTY);
+        setDireccion(TextHelper.EMPTY);
         setDescription(TextHelper.EMPTY);
+        setCorreo(TextHelper.EMPTY);
     }
 
-//    public static final ResidentialComplexEntity create(){return new ResidentialComplexEntity();}
+    public static final ResidentialComplexEntity create(){return new ResidentialComplexEntity();}
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = TextHelper.applyTrim(name);
+    public void setNombre(String nombre) {
+        this.nombre = TextHelper.applyTrim(nombre);
     }
 
     @Override
@@ -45,20 +50,20 @@ public class ResidentialComplexEntity extends DomainEntity {
         return super.getId();
     }
 
-    public CityEntity getCity() {
-        return city;
+    public CityEntity getCiudad() {
+        return ciudad;
     }
 
-    public void setCity(final CityEntity city) {
-        this.city = ObjectHelper.getDefault(city, new CityEntity());
+    public void setCiudad(final CityEntity ciudad) {
+        this.ciudad = ObjectHelper.getDefault(ciudad, new CityEntity());
     }
 
-//    public PorteroEntity getPortero() {
-//        return portero;
-//    }
-//    public void setPortero(final PorteroEntity portero) {
-//        this.portero = ObjectHelper.getDefault(portero, new PorteroEntity());
-//    }
+    public PorteroEntity getPortero() {
+        return portero;
+    }
+    public void setPortero(final PorteroEntity portero) {
+        this.portero = ObjectHelper.getDefault(portero, new PorteroEntity());
+    }
     public AdministratorEntity getAdministrator() {
         return administrator;
     }
@@ -67,20 +72,26 @@ public class ResidentialComplexEntity extends DomainEntity {
         this.administrator = ObjectHelper.getDefault(administrator, new AdministratorEntity());
     }
 
-    public String getAddress() {
-        return address; // Corregido a minúscula
+    public String getDireccion() {
+        return direccion; // Corregido a minúscula
     }
 
-    public void setAddress(String address) {
-        this.address = address; // Corregido a minúscula
+    public void setDireccion(String direccion) {
+        this.direccion = direccion; // Corregido a minúscula
     }
 
-    public String getContactReception() { // Cambiado a String
-        return contactReception; // Cambiado a String
+    public String getTelefono_contacto() { // Cambiado a String
+        return telefono_contacto; // Cambiado a String
     }
 
-    public void setContactReception(String contactReception) { // Cambiado a String
-        this.contactReception = contactReception; // Cambiado a String
+    public void setTelefono_contacto(String telefono_contacto) { // Cambiado a String
+        this.telefono_contacto = telefono_contacto; // Cambiado a String
+    }
+
+    public String getCorreo() {return correo;  }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getDescription() { // Corregido a getDescription
