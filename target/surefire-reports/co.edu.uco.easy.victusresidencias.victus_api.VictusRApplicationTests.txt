@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: co.edu.uco.easy.victusresidencias.victus_api.VictusRApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.002 s -- in co.edu.uco.easy.victusresidencias.victus_api.VictusRApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.490 s -- in co.edu.uco.easy.victusresidencias.victus_api.VictusRApplicationTests

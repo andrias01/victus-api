@@ -66,4 +66,5 @@ co\edu\uco\easy\victusresidencias\victus_api\controller\response\concrete\Generi
 co\edu\uco\easy\victusresidencias\victus_api\dao\impl\postgresql\ResidentialComplexPostgreSqlDAO.class
 co\edu\uco\easy\victusresidencias\victus_api\controller\response\Response.class
 co\edu\uco\easy\victusresidencias\victus_api\entity\PropertyEntity.class
+co\edu\uco\easy\victusresidencias\victus_api\controller\ResidentialComplexControlador.class
 co\edu\uco\easy\victusresidencias\victus_api\entity\DomainEntity.class
